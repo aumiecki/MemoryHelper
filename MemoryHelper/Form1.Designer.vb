@@ -265,6 +265,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(591, 418)
         Me.Controls.Add(Me.testTmp)
         Me.Controls.Add(Me.ToolStrip1)
