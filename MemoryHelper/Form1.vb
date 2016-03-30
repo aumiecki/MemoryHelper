@@ -1,6 +1,6 @@
 ﻿Public Class Form1
 
-    Dim strFilePathName As String = ""
+    Dim strFilePathName As String = "D:\Documents\Source\Repository\MemoryHelper\MemoryHelper\MyFile.txt"
     Dim intCurrentRecord As Integer
 
     Structure MemoryRecord
@@ -225,11 +225,12 @@
     End Function
 
     Private Sub tsmOpen_Click(sender As Object, e As EventArgs) Handles tsmOpen.Click
-        saveRecord()
-        If saveTable(strFilePathName, dataTable) = False Then
-            MsgBox("Error Writing Data to File",
-            MsgBoxStyle.Critical)
-        End If
+        emptyRecords()
+        strFilePathName = getFile()
+        fillTable(strFilePathName, dataTable)
+        showRecord(0)
+        Me.ToolStrip.Enabled = True
+        Me.Text = "Memory Helper (" & strFilePathName & ")"
     End Sub
 
     Private Function newFile() As String
