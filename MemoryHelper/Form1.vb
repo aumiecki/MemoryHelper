@@ -12,9 +12,13 @@
 
     Dim dataTable(-1) As MemoryRecord
 
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        emptyRecords()
+    End Sub
+
     'Private Sub testTmp_Click(sender As Object, e As EventArgs) Handles testTmp.Click
     '    'Temp Event handler used to test
-    '    clearDisplay()
+    '    updatePosition()
     'End Sub
 
     '*** Helper Procedures ***
@@ -41,7 +45,7 @@
     End Sub
 
     Private Sub updatePosition()
-        Me.StatusStrip.Text = "Current Record = " & (intCurrentRecord + 1).ToString & " of " & dataTable.Length.ToString
+        Me.lblToolStripStatus.Text = "Current Record = " & (intCurrentRecord + 1).ToString & " of " & dataTable.Length.ToString
     End Sub
     '*** Worker Procedures ***
 
@@ -99,6 +103,7 @@
             Me.dtpDate.Value = dataTable(index).dDate
             Me.cbxDeleted.Checked = dataTable(index).blnDeleted
             intCurrentRecord = index
+            updatePosition()
         End If
     End Sub
 
@@ -142,5 +147,123 @@
         Else
             MsgBox("Record Not Found", MsgBoxStyle.Critical)
         End If
+    End Sub
+
+    Private Function saveTable(ByVal dataSource As String, ByVal table() As MemoryRecord) As Boolean
+        Dim outputStream As System.IO.StreamWriter = Nothing
+        Dim blnSuccessful As Boolean = True
+
+        Try
+            outputStream = New System.IO.StreamWriter(dataSource, False)
+            For Each item As MemoryRecord In table
+                If item.blnDeleted = False Then
+                    outputStream.WriteLine(item.dDate)
+                    outputStream.WriteLine(item.strTitle)
+                    outputStream.WriteLine(item.strMemo)
+                End If
+            Next
+        Catch ex As Exception
+            blnSuccessful = False
+        Finally
+            outputStream.Close()
+        End Try
+
+        Return blnSuccessful
+    End Function
+
+    Private Sub tsmSave_Click(sender As Object, e As EventArgs) Handles tsmSave.Click
+        saveRecord()
+
+        If saveTable(strFilePathName, dataTable) = False Then
+            MsgBox("Error Writing Data to File",
+            MsgBoxStyle.Critical)
+        End If
+    End Sub
+
+    Private Function getFile() As String
+        Dim findFileDialog As New OpenFileDialog
+        Dim result As DialogResult
+
+        With findFileDialog
+            .Title = "Locate Memory Helper Data File"
+            .InitialDirectory = System.IO.Directory.GetCurrentDirectory
+            .FileName = ""
+            .Filter = "TextFiles (*.txt)|*.txt"
+            result = .ShowDialog
+        End With
+
+        If result <> DialogResult.Cancel Then
+            Return findFileDialog.FileName
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Function fillTable(ByVal dataSource As String,
+        ByRef table() As MemoryRecord) As Integer
+
+        Dim newRecord As MemoryRecord
+        Dim inputStream As System.IO.StreamReader = Nothing
+
+        Try
+            inputStream = New System.IO.StreamReader(dataSource)
+            Do Until inputStream.EndOfStream
+                newRecord.dDate = Convert.ToDateTime(inputStream.ReadLine())
+                newRecord.strTitle = inputStream.ReadLine()
+                newRecord.strMemo = inputStream.ReadLine()
+                newRecord.blnDeleted = False
+                ReDim Preserve table(table.Length)
+                table(table.Length - 1) = newRecord
+            Loop
+        Catch ex As Exception
+            MsgBox("Error Reading File", MsgBoxStyle.Critical)
+        Finally
+            inputStream.Close()
+        End Try
+
+        Return table.Length
+    End Function
+
+    Private Sub tsmOpen_Click(sender As Object, e As EventArgs) Handles tsmOpen.Click
+        saveRecord()
+        If saveTable(strFilePathName, dataTable) = False Then
+            MsgBox("Error Writing Data to File",
+            MsgBoxStyle.Critical)
+        End If
+    End Sub
+
+    Private Function newFile() As String
+        Dim newFileDialog As New SaveFileDialog()
+
+        With newFileDialog
+            .Filter = "txt files (*.txt)|*.txt"
+            .FilterIndex = 1
+            .RestoreDirectory = True
+            .DefaultExt = "txt"
+        End With
+
+        If newFileDialog.ShowDialog() = DialogResult.OK Then
+            Return newFileDialog.FileName
+        Else
+            Return ""
+        End If
+    End Function
+
+    Private Sub tsmNew_Click(sender As Object, e As EventArgs) Handles tsmNew.Click
+        strFilePathName = newFile()
+        If strFilePathName <> "" Then
+            emptyRecords()
+            updatePosition()
+            Me.ToolStrip.Enabled = True
+            Me.Text = "Memory Helper (" _
+                    & strFilePathName & ")"
+        Else
+            MsgBox("A file was not created",
+            MsgBoxStyle.Critical)
+        End If
+    End Sub
+
+    Private Sub tsmExit_Click(sender As Object, e As EventArgs) Handles tsmExit.Click
+        Me.Close()
     End Sub
 End Class

@@ -23,22 +23,22 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
         Me.tbxTitle = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblDate = New System.Windows.Forms.Label()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
         Me.tbxMemo = New System.Windows.Forms.TextBox()
         Me.cbxDeleted = New System.Windows.Forms.CheckBox()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmNew = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.lblToolStripStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStrip = New System.Windows.Forms.ToolStrip()
         Me.tsbFirst = New System.Windows.Forms.ToolStripButton()
         Me.tsbPrev = New System.Windows.Forms.ToolStripButton()
         Me.tsbNext = New System.Windows.Forms.ToolStripButton()
@@ -51,17 +51,17 @@ Partial Class Form1
         Me.testTmp = New System.Windows.Forms.Button()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
+        Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Label1
+        'lblTitle
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 105)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(30, 13)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Title:"
+        Me.lblTitle.AutoSize = True
+        Me.lblTitle.Location = New System.Drawing.Point(13, 105)
+        Me.lblTitle.Name = "lblTitle"
+        Me.lblTitle.Size = New System.Drawing.Size(30, 13)
+        Me.lblTitle.TabIndex = 2
+        Me.lblTitle.Text = "Title:"
         '
         'tbxTitle
         '
@@ -70,14 +70,14 @@ Partial Class Form1
         Me.tbxTitle.Size = New System.Drawing.Size(208, 20)
         Me.tbxTitle.TabIndex = 3
         '
-        'Label2
+        'lblDate
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(16, 139)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(33, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Date:"
+        Me.lblDate.AutoSize = True
+        Me.lblDate.Location = New System.Drawing.Point(16, 139)
+        Me.lblDate.Name = "lblDate"
+        Me.lblDate.Size = New System.Drawing.Size(33, 13)
+        Me.lblDate.TabIndex = 4
+        Me.lblDate.Text = "Date:"
         '
         'dtpDate
         '
@@ -108,41 +108,34 @@ Partial Class Form1
         '
         'ToolStripMenuItem1
         '
-        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.NewToolStripMenuItem, Me.SaveToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpen, Me.tsmNew, Me.tsmSave, Me.tsmExit})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(37, 20)
         Me.ToolStripMenuItem1.Text = "File"
         '
-        'OpenToolStripMenuItem
+        'tsmOpen
         '
-        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
-        Me.OpenToolStripMenuItem.Text = "Open"
+        Me.tsmOpen.Name = "tsmOpen"
+        Me.tsmOpen.Size = New System.Drawing.Size(152, 22)
+        Me.tsmOpen.Text = "Open"
         '
-        'NewToolStripMenuItem
+        'tsmNew
         '
-        Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
-        Me.NewToolStripMenuItem.Text = "New"
+        Me.tsmNew.Name = "tsmNew"
+        Me.tsmNew.Size = New System.Drawing.Size(152, 22)
+        Me.tsmNew.Text = "New"
         '
-        'SaveToolStripMenuItem
+        'tsmSave
         '
-        Me.SaveToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveAsToolStripMenuItem})
-        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
-        Me.SaveToolStripMenuItem.Text = "Save"
+        Me.tsmSave.Name = "tsmSave"
+        Me.tsmSave.Size = New System.Drawing.Size(152, 22)
+        Me.tsmSave.Text = "Save"
         '
-        'SaveAsToolStripMenuItem
+        'tsmExit
         '
-        Me.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem"
-        Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
-        Me.SaveAsToolStripMenuItem.Text = "Save As"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
+        Me.tsmExit.Name = "tsmExit"
+        Me.tsmExit.Size = New System.Drawing.Size(152, 22)
+        Me.tsmExit.Text = "Exit"
         '
         'MenuStrip
         '
@@ -154,7 +147,7 @@ Partial Class Form1
         '
         'StatusStrip
         '
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.lblToolStripStatus})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 396)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(591, 22)
@@ -163,17 +156,21 @@ Partial Class Form1
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(101, 17)
-        Me.ToolStripStatusLabel1.Text = "Current Record = "
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
         '
-        'ToolStrip1
+        'lblToolStripStatus
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbFirst, Me.tsbPrev, Me.tsbNext, Me.tsbLast, Me.ToolStripSeparator1, Me.tsbSearch, Me.tsbEdit, Me.tsbAdd, Me.tsbDelete})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(591, 38)
-        Me.ToolStrip1.TabIndex = 12
-        Me.ToolStrip1.Text = "ToolStrip1"
+        Me.lblToolStripStatus.Name = "lblToolStripStatus"
+        Me.lblToolStripStatus.Size = New System.Drawing.Size(0, 17)
+        '
+        'ToolStrip
+        '
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbFirst, Me.tsbPrev, Me.tsbNext, Me.tsbLast, Me.ToolStripSeparator1, Me.tsbSearch, Me.tsbEdit, Me.tsbAdd, Me.tsbDelete})
+        Me.ToolStrip.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip.Name = "ToolStrip"
+        Me.ToolStrip.Size = New System.Drawing.Size(591, 38)
+        Me.ToolStrip.TabIndex = 12
+        Me.ToolStrip.Text = "ToolStrip1"
         '
         'tsbFirst
         '
@@ -268,14 +265,14 @@ Partial Class Form1
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(591, 418)
         Me.Controls.Add(Me.testTmp)
-        Me.Controls.Add(Me.ToolStrip1)
+        Me.Controls.Add(Me.ToolStrip)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.cbxDeleted)
         Me.Controls.Add(Me.tbxMemo)
         Me.Controls.Add(Me.dtpDate)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblDate)
         Me.Controls.Add(Me.tbxTitle)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.MenuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "Form1"
@@ -284,28 +281,27 @@ Partial Class Form1
         Me.MenuStrip.PerformLayout()
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
+        Me.ToolStrip.ResumeLayout(False)
+        Me.ToolStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblTitle As Label
     Friend WithEvents tbxTitle As TextBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblDate As Label
     Friend WithEvents dtpDate As DateTimePicker
     Friend WithEvents tbxMemo As TextBox
     Friend WithEvents cbxDeleted As CheckBox
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SaveAsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents tsmOpen As ToolStripMenuItem
+    Friend WithEvents tsmNew As ToolStripMenuItem
+    Friend WithEvents tsmSave As ToolStripMenuItem
+    Friend WithEvents tsmExit As ToolStripMenuItem
     Friend WithEvents MenuStrip As MenuStrip
     Friend WithEvents StatusStrip As StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
-    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents ToolStrip As ToolStrip
     Friend WithEvents tsbFirst As ToolStripButton
     Friend WithEvents tsbPrev As ToolStripButton
     Friend WithEvents tsbNext As ToolStripButton
@@ -316,4 +312,5 @@ Partial Class Form1
     Friend WithEvents tsbAdd As ToolStripButton
     Friend WithEvents tsbDelete As ToolStripButton
     Friend WithEvents testTmp As Button
+    Friend WithEvents lblToolStripStatus As ToolStripStatusLabel
 End Class
