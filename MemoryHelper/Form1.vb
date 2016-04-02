@@ -1,8 +1,10 @@
 ﻿Public Class Form1
 
-    Dim strFilePathName As String = "D:\Documents\Source\Repository\MemoryHelper\MemoryHelper\MyFile.txt"
-    Dim intCurrentRecord As Integer
+    'declar global variables
+    Dim strFilePathName As String = "D:\Documents\Source\Repository\MemoryHelper\MemoryHelper\MyFile.txt" 'path of a file location
+    Dim intCurrentRecord As Integer 'record counter
 
+    ' define structure of an array
     Structure MemoryRecord
         Dim blnDeleted As Boolean
         Dim dDate As Date
@@ -10,19 +12,23 @@
         Dim strMemo As String
     End Structure
 
+    'declare an array
     Dim dataTable(-1) As MemoryRecord
 
+    ''' <summary>
+    ''' loads firm
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">loads form</param>
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         emptyRecords()
     End Sub
 
-    'Private Sub testTmp_Click(sender As Object, e As EventArgs) Handles testTmp.Click
-    '    'Temp Event handler used to test
-    '    updatePosition()
-    'End Sub
-
     '*** Helper Procedures ***
 
+    ''' <summary>
+    ''' procedure to all for edit of the record
+    ''' </summary>
     Private Sub allowEditRecord()
         Me.tbxTitle.Enabled = True
         Me.tbxMemo.Enabled = True
@@ -30,6 +36,9 @@
         Me.cbxDeleted.Enabled = False
     End Sub
 
+    ''' <summary>
+    ''' procedure to protect record from being edited
+    ''' </summary>
     Private Sub protectRecord()
         Me.tbxTitle.Enabled = False
         Me.tbxMemo.Enabled = False
@@ -37,6 +46,9 @@
         Me.cbxDeleted.Enabled = False
     End Sub
 
+    ''' <summary>
+    ''' prodedure to clear all data fields
+    ''' </summary>
     Private Sub clearDisplay()
         Me.tbxTitle.Text = String.Empty
         Me.tbxMemo.Text = String.Empty
@@ -44,11 +56,18 @@
         Me.cbxDeleted.Checked = False
     End Sub
 
+    ''' <summary>
+    ''' displays current record's position on the tool strip status bar
+    ''' </summary>
     Private Sub updatePosition()
         Me.lblToolStripStatus.Text = "Current Record = " & (intCurrentRecord + 1).ToString & " of " & dataTable.Length.ToString
     End Sub
+
     '*** Worker Procedures ***
 
+    ''' <summary>
+    ''' declares a new record
+    ''' </summary>
     Private Sub newRecord()
         saveRecord()
         clearDisplay()
@@ -58,12 +77,18 @@
         updatePosition()
     End Sub
 
+    ''' <summary>
+    ''' deletes record
+    ''' </summary>
     Private Sub deleteRecord()
         dataTable(intCurrentRecord).blnDeleted = True
         cbxDeleted.Checked = True
         protectRecord()
     End Sub
 
+    ''' <summary>
+    ''' saves record
+    ''' </summary>
     Private Sub saveRecord()
         If intCurrentRecord >= 0 Then
             dataTable(intCurrentRecord).strTitle = Me.tbxTitle.Text
@@ -74,27 +99,50 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' empties data from record
+    ''' </summary>
     Private Sub emptyRecords()
         clearDisplay()
         protectRecord()
         intCurrentRecord = -1
         ReDim dataTable(-1)
     End Sub
+
     '*** ToolStrip Event Handlers ***
 
+    ''' <summary>
+    ''' add button 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">add button </param>
     Private Sub tsbAdd_Click(sender As Object, e As EventArgs) Handles tsbAdd.Click
         newRecord()
     End Sub
 
+    ''' <summary>
+    ''' edit button 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">edit button</param>
     Private Sub tsbEdit_Click(sender As Object, e As EventArgs) Handles tsbEdit.Click
         allowEditRecord()
     End Sub
 
+    ''' <summary>
+    ''' delete button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">delete button</param>
     Private Sub tsbDelete_Click(sender As Object, e As EventArgs) Handles tsbDelete.Click
         deleteRecord()
     End Sub
     '*** Navigation Buttons ***
 
+    ''' <summary>
+    ''' diplays data of current record
+    ''' </summary>
+    ''' <param name="index"></param>
     Private Sub showRecord(ByVal index As Integer)
         saveRecord()
         If index >= 0 And index <= dataTable.GetUpperBound(0) Then
@@ -107,22 +155,47 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' navigate to first record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">navigate to first record</param>
     Private Sub tsbFirst_Click(sender As Object, e As EventArgs) Handles tsbFirst.Click
         showRecord(0)
     End Sub
 
+    ''' <summary>
+    ''' navigate to last record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">navigate to last record</param>
     Private Sub tsbLast_Click(sender As Object, e As EventArgs) Handles tsbLast.Click
         showRecord(dataTable.Length - 1)
     End Sub
 
+    ''' <summary>
+    ''' navigate to next record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">navigate to next record</param>
     Private Sub tsbNext_Click(sender As Object, e As EventArgs) Handles tsbNext.Click
         showRecord(intCurrentRecord + 1)
     End Sub
 
+    ''' <summary>
+    ''' navigate to previous record
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">navigate to previous record</param>
     Private Sub tsbPrev_Click(sender As Object, e As EventArgs) Handles tsbPrev.Click
         showRecord(intCurrentRecord - 1)
     End Sub
 
+    ''' <summary>
+    ''' finds data in array and navigates to the record
+    ''' </summary>
+    ''' <param name="strSearchTerm">find data</param>
+    ''' <returns></returns>
     Private Function FindRecord(ByVal strSearchTerm As String) As Integer
         Dim returnValue As Integer = -1
         Dim currentElement As Integer = 0
@@ -138,6 +211,11 @@
         Return returnValue
     End Function
 
+    ''' <summary>
+    ''' search button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">search button</param>
     Private Sub tsbSearch_Click(sender As Object, e As EventArgs) Handles tsbSearch.Click
         Dim strSearchTerm As String = InputBox("Search Term:", "Find Record")
         Dim index As Integer = FindRecord(strSearchTerm)
@@ -149,6 +227,12 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' saves data to a file
+    ''' </summary>
+    ''' <param name="dataSource"></param>
+    ''' <param name="table">save to a file</param>
+    ''' <returns></returns>
     Private Function saveTable(ByVal dataSource As String, ByVal table() As MemoryRecord) As Boolean
         Dim outputStream As System.IO.StreamWriter = Nothing
         Dim blnSuccessful As Boolean = True
@@ -171,6 +255,11 @@
         Return blnSuccessful
     End Function
 
+    ''' <summary>
+    ''' save button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">save button</param>
     Private Sub tsmSave_Click(sender As Object, e As EventArgs) Handles tsmSave.Click
         saveRecord()
 
@@ -180,6 +269,10 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' opens file window dialog to get files
+    ''' </summary>
+    ''' <returns></returns>
     Private Function getFile() As String
         Dim findFileDialog As New OpenFileDialog
         Dim result As DialogResult
@@ -199,6 +292,12 @@
         End If
     End Function
 
+    ''' <summary>
+    ''' populates data from file to the array
+    ''' </summary>
+    ''' <param name="dataSource"></param>
+    ''' <param name="table">populates data from file</param>
+    ''' <returns></returns>
     Private Function fillTable(ByVal dataSource As String,
         ByRef table() As MemoryRecord) As Integer
 
@@ -224,6 +323,11 @@
         Return table.Length
     End Function
 
+    ''' <summary>
+    ''' open button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">open button</param>
     Private Sub tsmOpen_Click(sender As Object, e As EventArgs) Handles tsmOpen.Click
         emptyRecords()
         strFilePathName = getFile()
@@ -233,6 +337,10 @@
         Me.Text = "Memory Helper (" & strFilePathName & ")"
     End Sub
 
+    ''' <summary>
+    ''' creates new file
+    ''' </summary>
+    ''' <returns>creates new file</returns>
     Private Function newFile() As String
         Dim newFileDialog As New SaveFileDialog()
 
@@ -250,6 +358,11 @@
         End If
     End Function
 
+    ''' <summary>
+    ''' new button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">new button</param>
     Private Sub tsmNew_Click(sender As Object, e As EventArgs) Handles tsmNew.Click
         strFilePathName = newFile()
         If strFilePathName <> "" Then
@@ -264,6 +377,11 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' exit button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e">exit button</param>
     Private Sub tsmExit_Click(sender As Object, e As EventArgs) Handles tsmExit.Click
         Me.Close()
     End Sub
